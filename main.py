@@ -38,3 +38,7 @@ def create_task(task: Task):
     task_id_counter += 1
 
     return new_task
+
+@app.get("/tasks")
+def get_tasks():
+    return tasks
