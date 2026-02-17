@@ -26,3 +26,20 @@ def test_create_task():
     assert data["title"] == "Write more tests"
     assert data["completed"] is False
     assert "id" in data
+
+def test_get_single_task():
+    # First create a task
+    create_response = client.post(
+        "/tasks",
+        json={"title": "Test single fetch"}
+    )
+
+    task_id = create_response.json()["id"]
+
+    # Now fetch it
+    response = client.get(f"/tasks/{task_id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["id"] == task_id
+    assert data["title"] == "Test single fetch"
